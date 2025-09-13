@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body1 %}
+
+    <div class="container my-3">
+    <h3>Add a Todo</h3>
+    <form action="/" method="POST">
+      <div class="mb-3">
+        <label for="title" class="form-label">Todo Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          placeholder="Todo Title"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="desc" class="form-label"
+          >Todo Description</label
+        >
+        <textarea
+          class="form-control"
+          id="desc"
+          name="desc"
+          rows="3"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-dark">Add Todo</button>
+    </div>
+
+    <div class="container my-3">
+    <h3>My Todo List</h3>
+    {% if todos|length == 0 %}
+      <div class="alert alert-dark" role="alert">
+         Add your first todo!
+      </div>
+      {% else %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sno</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date Created</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for todo in todos %}
+          <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ todo.title }}</td>
+            <td>{{ todo.desc }}</td>
+            <td>{{ todo.date_created }}</td>
+            <td>
+              <a href="/update/{{ todo.sno }}" class="btn btn-outline-success btn-sm mx-1">Edit</a>
+              <a href="/delete/{{ todo.sno }}" class="btn btn-outline-danger btn-sm mx-1">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+{% endblock body1 %}
